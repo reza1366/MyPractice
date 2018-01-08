@@ -157,3 +157,11 @@ for (let v of numbers)
 }
  
 //--------------------------------------------------Generator Functions----------------------------------
+function* random1_20(){
+    while(true){
+        yield Math.floor(Math.random()*20)+1;
+    }
+}
+let gen=random1_20();
+console.log(gen.next());
+console.log(gen.next());
