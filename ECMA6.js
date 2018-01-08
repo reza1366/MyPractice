@@ -54,12 +54,12 @@ console.log(sum3(...args));
 
 //------------------------------------------------------strings-----------------------------------------------
 //new line old
-console.log("string line one \n"+
+/*console.log("string line one \n"+
 "string line two");
 //new line ecma6
 console.log(`string line one
 string line two`);
-
+*/
 let v1 = 4;
 let v2 = 3
 let newStr = `sum of a and b in ${v1 + v2}`;
@@ -142,26 +142,40 @@ let sumOfNums = 0;
 let forEachArrow = numbers.forEach(n => sumOfNums += n);
 
 //-------------------------------------------------Iterator- For of---------------------------------------
-//let iterator = numbers.values();
-//var next = iterator.next();
-//let sumOfitems = 0;
-//while (!next.done) {
-//    sumOfitems += next.value;
-//    next = iterator.next();
-//}
+/*let iterator = numbers.values();
+var next = iterator.next();
+let sumOfitems = 0;
+while (!next.done) {
+    sumOfitems += next.value;
+    next = iterator.next();
+}
 
 
 for (let v of numbers)
 {
     console.log(v);
 }
+*/
  
 //--------------------------------------------------Generator Functions----------------------------------
+function* random(max)
+{
+   yield Math.floor(Math.random()*max)+1;
+}
 function* random1_20(){
     while(true){
-        yield Math.floor(Math.random()*20)+1;
+        yield* random(20);
     }
 }
 let gen=random1_20();
+/*console.log(gen.next());
 console.log(gen.next());
 console.log(gen.next());
+*/
+//-------------------------------------------------Set----------------------------------------------
+let set=new Set();
+//set.add(1);
+//set.add(2);
+
+console.log(set);
+console.log(set.size);
