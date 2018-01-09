@@ -250,3 +250,4 @@ let proxyPerson=new Proxy(person2,{
 console.log(proxyPerson.family);
 proxyPerson.family='ahmadi';
 console.log(proxyPerson.family);
+//-----------------------------------------------------------------------------------------------
