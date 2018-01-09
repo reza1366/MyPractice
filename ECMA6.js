@@ -173,9 +173,80 @@ console.log(gen.next());
 console.log(gen.next());
 */
 //-------------------------------------------------Set----------------------------------------------
-let set=new Set();
-//set.add(1);
-//set.add(2);
+let set=new Set([1,2,3]);
+set.add(4);
 
 console.log(set);
 console.log(set.size);
+console.log(set.has(1));
+set.clear();
+set.delete(1);
+//--------------------------------------------------Map---------------------------------------------
+//key value collection
+let map=new Map([['name','reza'],['family','najafi']]);
+map.set('age',30);
+console.log(map.get('name'));
+//map.has
+
+//---------------------------------------------------Symbol----------------------------------------
+class MakeIterator{
+    constructor(arr){
+        this.arr=arr;
+    }
+    [Symbol.iterator](){
+        let nextIndex=0;
+        return{
+            next:()=>{
+               return nextIndex<this.arr.length ? {value:this.arr[nextIndex++],done:false} : {done:true};
+            }
+        }
+    }
+}
+
+let symblClass=new MakeIterator(['a','b','c']);
+for (const iterator of symblClass) {
+    console.log(iterator);
+}
+//------------------------------------------------------Objects----------------------------
+console.log('---------------Objects---------------');
+console.log(Object.is(NaN,NaN));
+console.log(NaN===NaN);
+//copy objects
+let o1={a:1};
+let o2={b:1};
+let copy=Object.assign({},o1,o2);
+console.log(copy);
+
+let name='reza';
+let family='najafi';
+let person={name,family};
+
+function BuildObject(propName,propValue){
+    return {[propName]:propValue};
+}
+
+//console.log(BuildObject('name','reza'))
+//------------------------------------------------Proxy----------------------------------------------
+let person2={name:'reza',family:'najafi',age:30};
+let proxyPerson=new Proxy(person2,{
+    get(target,prop){
+        if(prop=='age')
+         return `age ${target[prop]}`;
+         else
+         return target[prop];
+    },
+    set(target,prop,value){
+        if(prop=='family')
+        {
+          console.log('not allow');
+          return true;
+        }
+        else
+        {
+            return target[prop]=value;
+        }
+    }
+});
+console.log(proxyPerson.family);
+proxyPerson.family='ahmadi';
+console.log(proxyPerson.family);
