@@ -250,4 +250,54 @@ let proxyPerson=new Proxy(person2,{
 console.log(proxyPerson.family);
 proxyPerson.family='ahmadi';
 console.log(proxyPerson.family);
-//-----------------------------------------------------------------------------------------------
+console.log('//-----------------------------------------------Proxy for object functions (apply)--------------------------')
+//use for tracking methods
+let person3={
+    name:'reza',
+    family:'najafi',
+    age: function(i){
+        return i;
+    }
+}
+let person4={name:'saeed'};
+
+person3.age=new Proxy(person3.age,{
+    apply(target,context,args){
+        if(context!=person3)
+           return 'nobody can use person';
+        else
+           return target.apply(context,args);
+    }
+});
+
+person4.age=person3.age;
+console.log(person4.age(20));
+console.log('//----------------------------------------------------Promises-----------------------------------------');
+
+function getOrder(orderId){
+    if(true)
+    return Promise.resolve({userId:20});
+    else
+    return Promise.reject('order error');
+}
+function getUser(userId){
+    if(true)
+    return Promise.resolve({companyId:10});
+    else
+    return Promise.reject('user error');
+}
+function getCompany(companyId){
+    if(true)
+    return Promise.resolve({name:'success'});
+    else
+    return Promise.reject('compnay error');
+}
+getOrder(3).then(function(order){
+    return getUser(order.userId);
+}).then(function(user){
+    return getCompany(user.companyId);
+}).then(function(company){
+    console.log(company);
+}).catch(function(err){
+    console.log(err);
+})
